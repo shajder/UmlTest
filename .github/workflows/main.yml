@@ -53,7 +53,7 @@ jobs:
         if (-Not (Test-Path "C:\Program Files (x86)\Intel\OpenCL SDK"  )) {
             Write-Host "Downloading Intel OpenCL Runtime installer."
             Invoke-WebRequest -Uri "https://registrationcenter-download.intel.com/akdlm/IRC_NAS/db03a347-5fd2-46f9-993f-1368e992a44b/w_opencl_runtime_p_2025.0.0.1166.exe" -OutFile "IntelOpenCLRuntime.exe"
-            Start-Process -FilePath "w_opencl_runtime_p_2025.0.0.1166.exe" -ArgumentList "/S" -Wait
+            Start-Process -FilePath "IntelOpenCLRuntime.exe" -ArgumentList "/S" -Wait
         }
 
     - name: Configure CMake
