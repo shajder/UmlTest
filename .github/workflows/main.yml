@@ -45,11 +45,18 @@ jobs:
         sudo apt-get install -y ocl-icd-opencl-dev
         sudo apt-get install -y build-essential
 
-    # - name: Install dependencies (Windows)
-    #   if: matrix.os == 'windows-latest'
-    #   run: |
-    #     choco install opencl-headers --version=2021.04.29 # Zainstaluj OpenCL za pomocą Chocolatey
-    #     choco install vcpython27 # Możesz dodać inne potrzebne pakiety
+    - name: Install Intel CPU Runtime for OpenCL (Windows)
+      if: matrix.os == 'windows-latest'
+      run: |
+        # Użyj Chocolatey do zainstalowania Intel OpenCL Runtime
+        choco install intel-opencl --version=2021.5.0 --yes || echo "Intel OpenCL runtime not available via Chocolatey, installing manually."
+        
+        # Ręczne pobranie i instalacja jako alternatywa
+        if [[ ! -f "C:\ProgramData\chocolatey\lib\intel-opencl\tools\IntelOpenCLRuntime.exe" ]]; then
+            echo "Downloading Intel OpenCL Runtime installer."
+            Invoke-WebRequest -Uri "https://software.intel.com/content/www/us/en/develop/tools/opencl-sdk/opencl-installer.html" -OutFile "IntelOpenCLRuntime.exe"
+            Start-Process -FilePath "IntelOpenCLRuntime.exe" -ArgumentList "/S" -Wait
+        }
 
     - name: Configure CMake
       run: cmake -S . -B build
