@@ -48,7 +48,7 @@ jobs:
     - name: Install Intel CPU Runtime for OpenCL (Windows)
       if: matrix.os == 'windows-latest'
       run: |
-        choco install intel-opencl --yes || echo "Intel OpenCL runtime not available via Chocolatey, attempting to install manually."
+        choco install opencl-intel-cpu-runtime --yes || echo "Intel OpenCL runtime not available via Chocolatey, attempting to install manually."
         
         if (-Not (Test-Path "C:\Program Files (x86)\Intel\OpenCL SDK"  )) {
             Write-Host "Downloading Intel OpenCL Runtime installer."
