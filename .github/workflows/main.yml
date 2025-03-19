@@ -19,12 +19,25 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
-
+    # - name: Setup Ninja
+    #   uses: seanmiddleditch/gha-setup-ninja@master
     - name: Set up CMake
       uses: jwlawson/actions-setup-cmake@v1
       with:
         cmake-version: '3.20.0'
 
+    # - name: Setup MSVC with Ninja
+    #   uses: ilammy/msvc-dev-cmd@v1
+
+    - name: Fetch OpenCL Headers
+      shell: bash
+      run: |
+        git clone https://github.com/KhronosGroup/OpenCL-Headers.git
+        cd OpenCL-Headers
+        ln -s CL OpenCL
+        cd ..
+
+      
     - name: Install dependencies (Ubuntu)
       if: matrix.os == 'ubuntu-latest'
       run: |
@@ -46,3 +59,15 @@ jobs:
 
     - name: Run tests
       run: ctest --test-dir build
+
+  # formatcheck:
+  #   name: Check code format
+  #   runs-on: ubuntu-22.04
+  #   steps:
+  #     - name: Install packages
+  #       run: sudo apt install -y clang-format clang-format-14
+  #     - uses: actions/checkout@v4
+  #       with:
+  #         fetch-depth: 0
+  #     - name: Check code format
+  #       run: ./check-format.sh      
