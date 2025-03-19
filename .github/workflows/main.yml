@@ -37,14 +37,12 @@ jobs:
         ln -s CL OpenCL
         cd ..
 
-      
     - name: Install dependencies (Ubuntu)
       if: matrix.os == 'ubuntu-latest'
       run: |
         sudo apt-get update
         sudo apt-get install -y ocl-icd-opencl-dev
         sudo apt-get install -y build-essential
-
 
     - name: disable Windows Defender - Windows
       if: matrix.os == 'windows-latest'
@@ -59,8 +57,11 @@ jobs:
         # choco install opencl-intel-cpu-runtime --yes
         vcpkg.exe --triplet=x64-windows install opencl
 
-
-        
+    - name: Setup Visual Studio Build Tools (Windows)
+      if: matrix.os == 'windows-latest'
+      uses: microsoft/setup-msbuild@v1
+      with:
+        vs-version: 'latest'   
         
     - name: Configure CMake
       run: cmake -S . -B build
