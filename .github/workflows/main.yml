@@ -45,11 +45,11 @@ jobs:
         sudo apt-get install -y ocl-icd-opencl-dev
         sudo apt-get install -y build-essential
 
-    - name: Install dependencies (Windows)
-      if: matrix.os == 'windows-latest'
-      run: |
-        choco install opencl-headers --version=2021.04.29 # Zainstaluj OpenCL za pomocą Chocolatey
-        choco install vcpython27 # Możesz dodać inne potrzebne pakiety
+    # - name: Install dependencies (Windows)
+    #   if: matrix.os == 'windows-latest'
+    #   run: |
+    #     choco install opencl-headers --version=2021.04.29 # Zainstaluj OpenCL za pomocą Chocolatey
+    #     choco install vcpython27 # Możesz dodać inne potrzebne pakiety
 
     - name: Configure CMake
       run: cmake -S . -B build
