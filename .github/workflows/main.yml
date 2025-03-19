@@ -65,7 +65,9 @@ jobs:
         
     - name: Configure CMake (Windows)
       if: matrix.os == 'windows-latest'
-      run: cmake -S . -B build -G "NMake Makefiles"
+      run: |
+        call "C:\Program Files (x86)\Microsoft Visual Studio\{Version}\VC\vcvarsall.bat" x64
+        cmake -S . -B build -G "NMake Makefiles"
 
     - name: Configure CMake (Ubuntu)
       if: matrix.os == 'ubuntu-latest'
