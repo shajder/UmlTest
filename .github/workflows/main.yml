@@ -45,24 +45,14 @@ jobs:
         sudo apt-get install -y ocl-icd-opencl-dev
         sudo apt-get install -y build-essential
 
-    - name: Install Intel CPU Runtime for OpenCL (Windows)
-      if: matrix.os == 'windows-latest'
+    - name: Install OpenCL
       run: |
-        choco install opencl-intel-cpu-runtime --yes || echo "Intel OpenCL runtime not available via Chocolatey, attempting to install manually."
-
-    - name: Set up OpenCL environment variables (Windows)
-      if: matrix.os == 'windows-latest'
-      run: |
-        $env:INCLUDE += ";C:\Program Files (x86)\Common Files\Intel\Shared Libraries\opencl\include"
-        $env:LIB += ";C:\Program Files (x86)\Common Files\Intel\Shared Libraries\opencl\lib\x64"
-        $env:Path += ";C:\Program Files (x86)\Common Files\Intel\Shared Libraries\opencl\bin\x64"
-
-    - name: More OpenCL environment variables (Windows)
-      if: matrix.os == 'windows-latest'
-      run: |
-        $env:INCLUDE += ";C:\Program Files (x86)\Intel\OpenCL SDK\{Version}\include"
-        $env:LIB += ";C:\Program Files (x86)\Intel\OpenCL SDK\{Version}\lib\x64"
-        $env:Path += ";C:\Program Files (x86)\Intel\OpenCL SDK\{Version}\bin\x64"
+        set NUGETDIR=C:\NUGET
+        nuget install opencl-nug -Version 0.777.77 -OutputDirectory %NUGETDIR%
+        dir %NUGETDIR%\opencl-nug.0.777.77\build\native\
+        set OCL_ROOT=%NUGETDIR%\opencl-nug.0.777.77\build\native
+        # Install OpenCL Runtime
+        choco install opencl-intel-cpu-runtime
 
     - name: Configure CMake
       run: cmake -S . -B build
