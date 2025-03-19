@@ -57,16 +57,15 @@ jobs:
         # choco install opencl-intel-cpu-runtime --yes
         vcpkg.exe --triplet=x64-windows install opencl
 
-    - name: Setup Visual Studio Build Tools (Windows)
+    - name: Install Visual Studio Build Tools (Windows)
       if: matrix.os == 'windows-latest'
-      uses: microsoft/setup-msbuild@v1
-      with:
-        vs-version: '2019'   
-        
+      run: |
+        choco install visualstudio2022community --installargs '--add Microsoft.VisualStudio.Workload.VCTools --includeRecommended --quiet'
+    
     - name: Configure CMake (Windows)
       if: matrix.os == 'windows-latest'
       run: |
-        & "C:\Program Files (x86)\Microsoft Visual Studio\2019\VC\vcvarsall.bat" x64
+        & "C:\Program Files (x86)\Microsoft Visual Studio\2022\VC\vcvarsall.bat" x64
         cmake -S . -B build -G "NMake Makefiles"
 
     - name: Configure CMake (Ubuntu)
