@@ -48,13 +48,11 @@ jobs:
     - name: Install Intel CPU Runtime for OpenCL (Windows)
       if: matrix.os == 'windows-latest'
       run: |
-        # Użyj Chocolatey do zainstalowania Intel OpenCL Runtime
-        choco install intel-opencl --version=2021.5.0 --yes || echo "Intel OpenCL runtime not available via Chocolatey, installing manually."
+        choco install intel-opencl --yes || echo "Intel OpenCL runtime not available via Chocolatey, attempting to install manually."
         
-        # Ręczne pobranie i instalacja jako alternatywa
-        if [[ ! -f "C:\ProgramData\chocolatey\lib\intel-opencl\tools\IntelOpenCLRuntime.exe" ]]; then
-            echo "Downloading Intel OpenCL Runtime installer."
-            Invoke-WebRequest -Uri "https://software.intel.com/content/www/us/en/develop/tools/opencl-sdk/opencl-installer.html" -OutFile "IntelOpenCLRuntime.exe"
+        if (-Not (Test-Path "C:\Program Files (x86)\Intel\OpenCL SDK"  )) {
+            Write-Host "Downloading Intel OpenCL Runtime installer."
+            Invoke-WebRequest -Uri "https://example.com/path/to/IntelOpenCLRuntime.exe" -OutFile "IntelOpenCLRuntime.exe"
             Start-Process -FilePath "IntelOpenCLRuntime.exe" -ArgumentList "/S" -Wait
         }
 
