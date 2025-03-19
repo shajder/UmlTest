@@ -46,21 +46,20 @@ jobs:
         sudo apt-get install -y build-essential
 
 
-    # Instalacja NuGet
-    - name: Install NuGet
+    - name: disable Windows Defender - Windows
       if: matrix.os == 'windows-latest'
       run: |
-        choco install nuget.commandline --yes
+        Set-MpPreference -DisableRealtimeMonitoring $true        
         
-    - name: Install OpenCL
+    - name: Install Intel CPU Runtime for OpenCL (Windows)
+      if: matrix.os == 'windows-latest'
       run: |
-        set NUGETDIR=C:\NUGET
-        nuget install opencl-nug -Version 0.777.77 -OutputDirectory %NUGETDIR%
-        dir %NUGETDIR%\opencl-nug.0.777.77\build\native\
-        set OCL_ROOT=%NUGETDIR%\opencl-nug.0.777.77\build\native
-        # Install OpenCL Runtime
-        choco install opencl-intel-cpu-runtime
+        # Użyj Chocolatey do zainstalowania Intel OpenCL Runtime
+        choco install opencl-intel-cpu-runtime --yes
 
+
+        
+        
     - name: Configure CMake
       run: cmake -S . -B build
 
