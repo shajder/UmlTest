@@ -49,13 +49,15 @@ jobs:
     - name: disable Windows Defender - Windows
       if: matrix.os == 'windows-latest'
       run: |
-        Set-MpPreference -DisableRealtimeMonitoring $true        
+        Set-MpPreference -DisableRealtimeMonitoring $true
+        echo "VCPKG_ROOT=C:\vcpkg" >> $GITHUB_ENV
         
     - name: Install Intel CPU Runtime for OpenCL (Windows)
       if: matrix.os == 'windows-latest'
       run: |
         # Użyj Chocolatey do zainstalowania Intel OpenCL Runtime
-        choco install opencl-intel-cpu-runtime --yes
+        # choco install opencl-intel-cpu-runtime --yes
+        vcpkg.exe --triplet=x64-windows install opencl
 
 
         
