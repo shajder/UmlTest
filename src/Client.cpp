@@ -2,11 +2,11 @@
 #include "Client.h"
 #include "Transaction.h"
 
-int Client::createTransaction(const void* & src, unsigned int src_size, void* & dst, unsigned int dst_size, string op_name) {
-  return 0;
+shared_ptr<Transaction> Client::createTransaction() {
+  return std::shared_ptr<Transaction>();
 }
 
-int Client::closeTransaction(Transaction & transaction) {
+int Client::closeTransaction(shared_ptr<Transaction> & transaction) {
   return 0;
 }
 
