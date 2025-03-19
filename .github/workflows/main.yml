@@ -61,12 +61,12 @@ jobs:
       if: matrix.os == 'windows-latest'
       uses: microsoft/setup-msbuild@v1
       with:
-        vs-version: 'latest'   
+        vs-version: '2019'   
         
     - name: Configure CMake (Windows)
       if: matrix.os == 'windows-latest'
       run: |
-        & "C:\Program Files (x86)\Microsoft Visual Studio\{Version}\VC\vcvarsall.bat" x64
+        & "C:\Program Files (x86)\Microsoft Visual Studio\2019\VC\vcvarsall.bat" x64
         cmake -S . -B build -G "NMake Makefiles"
 
     - name: Configure CMake (Ubuntu)
