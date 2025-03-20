@@ -26,29 +26,12 @@ jobs:
       with:
         cmake-version: '3.20.0'
 
-    # - name: Setup MSVC with Ninja
-    #   uses: ilammy/msvc-dev-cmd@v1
-
-    - name: Fetch OpenCL Headers
-      shell: bash
-      run: |
-        git clone https://github.com/KhronosGroup/OpenCL-Headers.git
-        cd OpenCL-Headers
-        ln -s CL OpenCL
-        cd ..
-
     - name: Install dependencies (Ubuntu)
       if: matrix.os == 'ubuntu-latest'
       run: |
         sudo apt-get update
         sudo apt-get install -y ocl-icd-opencl-dev
         sudo apt-get install -y build-essential
-
-    - name: disable Windows Defender - Windows
-      if: matrix.os == 'windows-latest'
-      run: |
-        Set-MpPreference -DisableRealtimeMonitoring $true
-        echo "VCPKG_ROOT=C:\vcpkg" >> $GITHUB_ENV
         
     - name: Install Intel CPU Runtime for OpenCL (Windows)
       if: matrix.os == 'windows-latest'
@@ -57,19 +40,14 @@ jobs:
         # choco install opencl-intel-cpu-runtime --yes
         vcpkg.exe --triplet=x64-windows install opencl
 
-    - name: Install Visual Studio Build Tools (Windows)
+    - name: Configure Windows
       if: matrix.os == 'windows-latest'
+      shell: cmd
       run: |
-        choco install visualstudio2022community --installargs '--add Microsoft.VisualStudio.Workload.VCTools --includeRecommended --quiet'
+        call "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build/vcvarsall.bat" x64
+        choco install ninja
     
-    - name: Configure CMake (Windows)
-      if: matrix.os == 'windows-latest'
-      run: |
-        & "C:\Program Files (x86)\Microsoft Visual Studio\2022\VC\vcvarsall.bat" x64
-        cmake -S . -B build -G "NMake Makefiles"
-
-    - name: Configure CMake (Ubuntu)
-      if: matrix.os == 'ubuntu-latest'
+    - name: Configure CMake
       run: cmake -S . -B build
       
     - name: Build
