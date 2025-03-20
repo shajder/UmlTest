@@ -47,6 +47,13 @@ jobs:
       run: |
         call "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build/vcvarsall.bat" x64
         choco install ninja
+
+    - name: Set up OpenCL environment variables (Windows)
+      if: matrix.os == 'windows-latest'
+      run: |
+        $env:INCLUDE += ";C:\Program Files (x86)\Common Files\Intel\Shared Libraries\opencl\include"
+        $env:LIB += ";C:\Program Files (x86)\Common Files\Intel\Shared Libraries\opencl\lib\x64"
+        $env:Path += ";C:\Program Files (x86)\Common Files\Intel\Shared Libraries\opencl\bin\x64"
     
     - name: Configure CMake
       run: cmake -G Ninja -S . -B build
