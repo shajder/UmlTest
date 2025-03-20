@@ -41,6 +41,11 @@ jobs:
         choco install opencl-intel-cpu-runtime --yes
         # vcpkg.exe --triplet=x64-windows install opencl
 
+    - name: Print log file (Windows)
+      if: matrix.os == 'windows-latest'
+      run: |
+        Get-Content C:\ProgramData\chocolatey\logs\chocolatey.log | ForEach-Object { Write-Host $_ }
+
     - name: Configure Windows
       if: matrix.os == 'windows-latest'
       shell: cmd
