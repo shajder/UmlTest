@@ -37,7 +37,7 @@ jobs:
       if: matrix.os == 'windows-latest'
       run: |
         # Użyj Chocolatey do zainstalowania Intel OpenCL Runtime
-        # choco install opencl-intel-cpu-runtime --yes
+        choco install opencl-intel-cpu-runtime --yes
         vcpkg.exe --triplet=x64-windows install opencl
 
     - name: Print contents of a directory
@@ -69,21 +69,21 @@ jobs:
     #     }
             
 
-    # - name: Set up OpenCL environment variables (Windows)
-    #   if: matrix.os == 'windows-latest'
-    #   run: |
-    #     $env:INCLUDE += ";C:\Program Files (x86)\Common Files\Intel\Shared Libraries\opencl\include"
-    #     $env:LIB += ";C:\Program Files (x86)\Common Files\Intel\Shared Libraries\opencl\lib\x64"
-    #     $env:Path += ";C:\Program Files (x86)\Common Files\Intel\Shared Libraries\opencl\bin\x64"
+    - name: Set up OpenCL environment variables (Windows)
+      if: matrix.os == 'windows-latest'
+      run: |
+        # $env:INCLUDE += ";C:\Program Files (x86)\Common Files\Intel\Shared Libraries\opencl\include"
+        $env:LIB += ";C:\Program Files (x86)\Common Files\Intel\OpenCL\bin\x64"
+        $env:Path += ";C:\Program Files (x86)\Common Files\Intel\OpenCL\bin\x64"
 
 
 
     
-    # - name: Configure CMake
-    #   run: cmake -G Ninja -S . -B build
+    - name: Configure CMake
+      run: cmake -G Ninja -S . -B build
       
-    # - name: Build
-    #   run: cmake --build build
+    - name: Build
+      run: cmake --build build
 
 
 
