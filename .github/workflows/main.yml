@@ -51,6 +51,7 @@ jobs:
 
 
     - name: Print contents of a directory
+      if: matrix.os == 'windows-latest'
       shell: pwsh  # Ensure the commands run in PowerShell
       run: |
         Get-ChildItem 'C:\vcpkg\installed\x64-windows\include\CL' | ForEach-Object { Write-Host $_.FullName }
