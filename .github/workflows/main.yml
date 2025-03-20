@@ -60,20 +60,17 @@ jobs:
         
             
 
-    - name: Set up OpenCL environment variables (Windows)
-      if: matrix.os == 'windows-latest'
-      run: |
-        $env:INCLUDE += ";C:\vcpkg\installed\x64-windows\include"
-        $env:LIB += ";C:\vcpkg\installed\x64-windows\lib"
-        $env:Path += ";C:\Program Files (x86)\Common Files\Intel\OpenCL\bin\x64"
-  
     - name: Set environment variables - Windows
       if: matrix.os == 'windows-latest'
-      shell: bash
+      shell: pwsh
       run: |
-        echo "LIB=$LIB:C:\vcpkg\installed\x64-windows\lib" >> $GITHUB_ENV
-        echo "INCLUDE=$INCLUDE:C:\vcpkg\installed\x64-windows\include" >> $GITHUB_ENV
-        echo "Path=$Path:C:\Program Files (x86)\Common Files\Intel\OpenCL\bin\x64" >> $GITHUB_ENV
+        $env:LIB += ";C:\vcpkg\installed\x64-windows\lib"
+        $env:INCLUDE += ";C:\vcpkg\installed\x64-windows\include"
+        $env:Path += ";C:\Program Files (x86)\Common Files\Intel\OpenCL\bin\x64"
+        echo "LIB=$env:LIB" >> $GITHUB_ENV
+        echo "INCLUDE=$env:INCLUDE" >> $GITHUB_ENV
+        echo "Path=$env:Path" >> $GITHUB_ENV
+
 
 
     
