@@ -53,7 +53,7 @@ jobs:
     - name: Print contents of a directory
       shell: pwsh  # Ensure the commands run in PowerShell
       run: |
-        Get-ChildItem 'C:\vcpkg\installed\x64-windows\include' | ForEach-Object { Write-Host $_.FullName }
+        Get-ChildItem 'C:\vcpkg\installed\x64-windows\include\CL' | ForEach-Object { Write-Host $_.FullName }
 
 
         
@@ -71,6 +71,8 @@ jobs:
       shell: bash
       run: |
         echo "LIB=C:\vcpkg\installed\x64-windows\lib" >> $GITHUB_ENV
+        echo "INCLUDE=C:\vcpkg\installed\x64-windows\include" >> $GITHUB_ENV
+        echo "Path=C:\Program Files (x86)\Common Files\Intel\OpenCL\bin\x64" >> $GITHUB_ENV
 
 
     
