@@ -48,6 +48,20 @@ jobs:
         call "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build/vcvarsall.bat" x64
         choco install ninja
 
+    - name: Check if file exists (Windows)
+      if: matrix.os == 'windows-latest'
+      run: |
+        if (Test-Path "C:\Program Files (x86)\Common Files\Intel\Shared Libraries\opencl\bin\x64\OpenCL.dll") {
+            Write-Host "File 1 exists."
+        }
+        if (Test-Path "C:\Program Files (x86)\Common Files\Intel\Shared Libraries\opencl\bin\OpenCL.dll") {
+            Write-Host "File 2 exists."
+        }
+        if (Test-Path "C:\Program Files (x86)\Common Files\Intel\Shared Libraries\opencl\lib\x64\OpenCL.lib") {
+            Write-Host "File 3 exists."
+        }
+            
+
     - name: Set up OpenCL environment variables (Windows)
       if: matrix.os == 'windows-latest'
       run: |
