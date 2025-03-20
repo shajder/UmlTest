@@ -39,14 +39,6 @@ jobs:
         # Użyj Chocolatey do zainstalowania Intel OpenCL Runtime
         choco install opencl-intel-cpu-runtime --yes
         vcpkg.exe --triplet=x64-windows install opencl
-
-    - name: Print contents of a directory
-      if: matrix.os == 'windows-latest'
-      shell: pwsh
-      run: |
-        Get-ChildItem 'C:\Program Files (x86)\Common Files\Intel\OpenCL\bin' | ForEach-Object { Write-Host $_.FullName }
-        Get-ChildItem 'C:\Program Files (x86)\Common Files\Intel\OpenCL' | ForEach-Object { Write-Host $_.FullName }
-        Get-ChildItem 'C:\Program Files (x86)\Common Files\Intel' | ForEach-Object { Write-Host $_.FullName }
         
     - name: Configure Windows
       if: matrix.os == 'windows-latest'
@@ -72,10 +64,15 @@ jobs:
     - name: Set up OpenCL environment variables (Windows)
       if: matrix.os == 'windows-latest'
       run: |
-        # $env:INCLUDE += ";C:\Program Files (x86)\Common Files\Intel\Shared Libraries\opencl\include"
-        $env:LIB += ";C:\Program Files (x86)\Common Files\Intel\OpenCL\bin\x64"
+        $env:INCLUDE += ";C:\vcpkg\installed\x64-windows\include"
+        $env:LIB += ";C:\vcpkg\installed\x64-windows\lib"
         $env:Path += ";C:\Program Files (x86)\Common Files\Intel\OpenCL\bin\x64"
-
+  
+    - name: Set environment variables - Windows
+      if: matrix.os == 'windows-latest'
+      shell: bash
+      run: |
+        echo "LIB=C:\vcpkg\installed\x64-windows\lib" >> $GITHUB_ENV
 
 
     
