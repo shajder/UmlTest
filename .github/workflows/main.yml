@@ -44,7 +44,7 @@ jobs:
       if: matrix.os == 'windows-latest'
       shell: pwsh
       run: |
-        Get-ChildItem 'C:\ProgramData\chocolatey\lib\opencl-intel-cpu-runtime\tools' | ForEach-Object { Write-Host $_.FullName }
+        Get-ChildItem 'C:\Program Files (x86)\Common Files\Intel' | ForEach-Object { Write-Host $_.FullName }
         
     - name: Configure Windows
       if: matrix.os == 'windows-latest'
