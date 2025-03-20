@@ -41,8 +41,8 @@ jobs:
         # vcpkg.exe --triplet=x64-windows install opencl
 
     - name: Print contents of a directory
+      shell: pwsh
       run: |
-        # Replace 'C:\path\to\your\directory' with the actual directory path
         Get-ChildItem 'C:\ProgramData\chocolatey\lib' | ForEach-Object { Write-Host $_.FullName }
         
     - name: Configure Windows
