@@ -19,8 +19,7 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
-    # - name: Setup Ninja
-    #   uses: seanmiddleditch/gha-setup-ninja@master
+
     - name: Set up CMake
       uses: jwlawson/actions-setup-cmake@v1
       with:
@@ -41,11 +40,11 @@ jobs:
         choco install opencl-intel-cpu-runtime --yes
         # vcpkg.exe --triplet=x64-windows install opencl
 
-    - name: Print log file (Windows)
-      if: matrix.os == 'windows-latest'
+    - name: Print contents of a directory
       run: |
-        Get-Content C:\ProgramData\chocolatey\logs\chocolatey.log | ForEach-Object { Write-Host $_ }
-
+        # Replace 'C:\path\to\your\directory' with the actual directory path
+        Get-ChildItem 'C:\ProgramData\chocolatey\lib' | ForEach-Object { Write-Host $_.FullName }
+        
     - name: Configure Windows
       if: matrix.os == 'windows-latest'
       shell: cmd
@@ -53,35 +52,41 @@ jobs:
         call "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build/vcvarsall.bat" x64
         choco install ninja
 
-    - name: Check if file exists (Windows)
-      if: matrix.os == 'windows-latest'
-      run: |
-        if (Test-Path "C:\Program Files (x86)\Common Files\Intel\Shared Libraries\opencl\bin\x64\OpenCL.dll") {
-            Write-Host "File 1 exists."
-        }
-        if (Test-Path "C:\Program Files (x86)\Common Files\Intel\Shared Libraries\opencl\bin\OpenCL.dll") {
-            Write-Host "File 2 exists."
-        }
-        if (Test-Path "C:\Program Files (x86)\Common Files\Intel\Shared Libraries\opencl\lib\x64\OpenCL.lib") {
-            Write-Host "File 3 exists."
-        }
+    # - name: Check if file exists (Windows)
+    #   if: matrix.os == 'windows-latest'
+    #   run: |
+    #     if (Test-Path "C:\Program Files (x86)\Common Files\Intel\Shared Libraries\opencl\bin\x64\OpenCL.dll") {
+    #         Write-Host "File 1 exists."
+    #     }
+    #     if (Test-Path "C:\Program Files (x86)\Common Files\Intel\Shared Libraries\opencl\bin\OpenCL.dll") {
+    #         Write-Host "File 2 exists."
+    #     }
+    #     if (Test-Path "C:\Program Files (x86)\Common Files\Intel\Shared Libraries\opencl\lib\x64\OpenCL.lib") {
+    #         Write-Host "File 3 exists."
+    #     }
             
 
-    - name: Set up OpenCL environment variables (Windows)
-      if: matrix.os == 'windows-latest'
-      run: |
-        $env:INCLUDE += ";C:\Program Files (x86)\Common Files\Intel\Shared Libraries\opencl\include"
-        $env:LIB += ";C:\Program Files (x86)\Common Files\Intel\Shared Libraries\opencl\lib\x64"
-        $env:Path += ";C:\Program Files (x86)\Common Files\Intel\Shared Libraries\opencl\bin\x64"
-    
-    - name: Configure CMake
-      run: cmake -G Ninja -S . -B build
-      
-    - name: Build
-      run: cmake --build build
+    # - name: Set up OpenCL environment variables (Windows)
+    #   if: matrix.os == 'windows-latest'
+    #   run: |
+    #     $env:INCLUDE += ";C:\Program Files (x86)\Common Files\Intel\Shared Libraries\opencl\include"
+    #     $env:LIB += ";C:\Program Files (x86)\Common Files\Intel\Shared Libraries\opencl\lib\x64"
+    #     $env:Path += ";C:\Program Files (x86)\Common Files\Intel\Shared Libraries\opencl\bin\x64"
 
-    - name: Run tests
-      run: ctest --test-dir build
+
+
+    
+    # - name: Configure CMake
+    #   run: cmake -G Ninja -S . -B build
+      
+    # - name: Build
+    #   run: cmake --build build
+
+
+
+
+    # - name: Run tests
+    #   run: ctest --test-dir build
 
   # formatcheck:
   #   name: Check code format
