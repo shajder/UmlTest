@@ -38,8 +38,8 @@ jobs:
       if: matrix.os == 'windows-latest'
       run: |
         # Użyj Chocolatey do zainstalowania Intel OpenCL Runtime
-        # choco install opencl-intel-cpu-runtime --yes
-        vcpkg.exe --triplet=x64-windows install opencl
+        choco install opencl-intel-cpu-runtime --yes
+        # vcpkg.exe --triplet=x64-windows install opencl
 
     - name: Configure Windows
       if: matrix.os == 'windows-latest'
