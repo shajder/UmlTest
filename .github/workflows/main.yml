@@ -67,10 +67,13 @@ jobs:
         $env:LIB += ";C:\vcpkg\installed\x64-windows\lib"
         $env:INCLUDE += ";C:\vcpkg\installed\x64-windows\include"
         $env:Path += ";C:\Program Files (x86)\Common Files\Intel\OpenCL\bin\x64"
-        echo "LIB=$env:LIB" >> $GITHUB_ENV
-        echo "INCLUDE=$env:INCLUDE" >> $GITHUB_ENV
-        echo "Path=$env:Path" >> $GITHUB_ENV
-
+        echo "PKG_CONFIG_PATH=$env:PKG_CONFIG_PATH" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        echo "INCLUDE=$env:INCLUDE" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        echo "CPATH=$env:CPATH" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        echo "IFCPATH=$env:IFCPATH" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        echo "LIB=$env:LIB" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        echo "LIBPATH=$env:LIBPATH" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        echo "LIBRARY_PATH=$env:LIBRARY_PATH" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
 
     
