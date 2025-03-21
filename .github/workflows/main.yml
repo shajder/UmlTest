@@ -80,14 +80,14 @@ jobs:
   # - name: Run tests
   #   run: ctest --test-dir build
 
-  # formatcheck:
-  #   name: Check code format
-  #   runs-on: ubuntu-22.04
-  #   steps:
-  #     - name: Install packages
-  #       run: sudo apt install -y clang-format clang-format-14
-  #     - uses: actions/checkout@v4
-  #       with:
-  #         fetch-depth: 0
-  #     - name: Check code format
-  #       run: ./check-format.sh      
+  formatcheck:
+    name: Check code format
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Install clang-format
+        run: sudo apt install -y clang-format clang-format-14
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Check code format
+        run: ./clang_format.sh      
