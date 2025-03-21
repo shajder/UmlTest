@@ -89,5 +89,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Give execute permission to clang_format.sh
+        run: chmod +x ./clang_format.sh
       - name: Check code format
         run: ./clang_format.sh      
