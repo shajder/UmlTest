@@ -1,9 +1,7 @@
 #ifndef _CLIENT_H
 #define _CLIENT_H
 
-
 #include <memory>
-using namespace std;
 #include <list>
 using namespace std;
 
@@ -28,11 +26,10 @@ public:
 
     int closeTransaction(shared_ptr<Transaction>& transaction);
 
-
 private:
-    list<shared_ptr<Transaction>> m_active_transactions;
+    std::list<shared_ptr<Transaction>> m_active_transactions;
 
-    std::list<Transaction*> m_transaction_cache;
+    std::list<shared_ptr<Transaction>> m_transaction_cache;
 
     std::shared_ptr<Transaction> m_transaction_active;
 };
