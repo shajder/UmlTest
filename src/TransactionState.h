@@ -2,9 +2,10 @@
 #define _TRANSACTIONSTATE_H
 
 
-enum TransactionState {
-  TS_IDLE,
-  TS_RUNNING,
-  TS_DONE
+enum TransactionState
+{
+    TS_IDLE,
+    TS_RUNNING,
+    TS_DONE
 };
 #endif

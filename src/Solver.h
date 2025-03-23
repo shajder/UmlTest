@@ -8,15 +8,16 @@ using namespace std;
 
 class Transaction;
 
-//Template class to deliver computation implementation for specific data and operation type.
+// Template class to deliver computation implementation for specific data and
+// operation type.
 class Solver {
-  public:
-    template<class T>
-    int compute(const T* & src, int src_size, const T* & dst, int dst_size, const Transaction* & cb);
+public:
+    template <class T>
+    int compute(const T*& src, int src_size, const T*& dst, int dst_size,
+                const Transaction*& cb);
 
 
-  private:
-    list<Transaction *> m_transactions;
-
+private:
+    list<Transaction*> m_transactions;
 };
 #endif

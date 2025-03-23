@@ -6,9 +6,10 @@
 #include <mutex>
 #include <list>
 
-//Wrapper class for main OpenCL objects. Access for the objects of the class must be performed throuh thread-safe interface.
+// Wrapper class for main OpenCL objects. Access for the objects of the class
+// must be performed throuh thread-safe interface.
 class ComputeRes {
-  public:
+public:
     cl_platform_id platform;
 
     cl_device_id device;
@@ -16,30 +17,29 @@ class ComputeRes {
     cl_context context;
 
 
-  private:
+private:
     std::list<cl_command_queue> queues_active;
 
 
-  public:
+public:
     static ComputeRes* getInstance();
 
 
-  private:
+private:
     std::mutex res_mutex;
 
     std::list<cl_command_queue> queues_cache;
 
 
-  public:
+public:
     int initialize();
 
 
-  private:
+private:
     bool initialized = false;
 
 
-  public:
+public:
     bool isInitialized();
-
 };
 #endif
