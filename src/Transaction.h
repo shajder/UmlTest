@@ -11,43 +11,46 @@ class Solver;
 #include <vector>
 #include <mutex>
 
-//This class represent slot for concurency computations. Life cycle of each session includes activation of the object, launching computations by providing a single barch of data, collecting the data and closing the transaction.
+// This class represent slot for concurency computations. Life cycle of each
+// session includes activation of the object, launching computations by
+// providing a single barch of data, collecting the data and closing the
+// transaction.
 class Transaction final {
-friend class Client;
-friend class Solver;
-  private:
+    friend class Client;
+    friend class Solver;
+
+private:
     TransactionState m_state;
 
 
-  public:
+public:
     TransactionState state();
 
-    template<class T>
-    int run(const T* & src, unsigned int src_size, OpType op_type);
+    template <class T>
+    int run(const T*& src, unsigned int src_size, OpType op_type);
 
 
-  private:
+private:
     std::vector<char> m_dst;
 
 
-  public:
-    template <typename T> int result(T* & dst, unsigned int & dst_size);
+public:
+    template <typename T> int result(T*& dst, unsigned int& dst_size);
 
 
-  private:
+private:
     int close();
 
-    Client * m_client;
+    Client* m_client;
 
-    Solver * m_solver;
+    Solver* m_solver;
 
 
-  public:
+public:
     void onNotifyComputeDone();
 
 
-  private:
+private:
     std::mutex m_state_mutex;
-
 };
 #endif

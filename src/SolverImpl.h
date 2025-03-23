@@ -8,18 +8,16 @@
 using namespace std;
 #include "ComputeRes.h"
 
-template<class T>
-class SolverImpl : public Solver {
-  public:
+template <class T> class SolverImpl : public Solver {
+public:
     int createKernel(OpType op_type);
 
 
-  private:
+private:
     cl_program program;
 
     cl_kernel kernel;
 
     string kernel_src;
-
 };
 #endif
