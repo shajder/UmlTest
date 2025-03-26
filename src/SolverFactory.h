@@ -13,8 +13,9 @@
 class SolverFactory {
 public:
     template <class T>
-    Solver* getOrCreate(const std::type_info& type_id,
-                        OpType op) throw(ComputeRes);
+    Solver* getOrCreate(const std::type_info& type_id, OpType op);
+
+    static SolverFactory* getInstance();
 
 
 private:
