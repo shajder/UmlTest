@@ -3,6 +3,7 @@
 
 
 #include "TransactionState.h"
+#include "SolverFactory.h"
 #include "OpType.h"
 
 class Client;
@@ -29,6 +30,9 @@ public:
     template <class T>
     int run(const T*& src, unsigned int src_size, OpType op_type);
 
+    template <class T> int setup(OpType ot, unsigned int src_size);
+
+    int cleanup();
 
 private:
     std::vector<char> m_dst;
