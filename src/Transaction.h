@@ -6,6 +6,16 @@
 #include "SolverFactory.h"
 #include "OpType.h"
 
+#ifdef _WIN32
+#ifdef BUILDING_CLIENT_DLL
+#define CLIENT_API __declspec(dllexport)
+#else
+#define CLIENT_API __declspec(dllimport)
+#endif
+#else
+#define CLIENT_API __attribute__((visibility("default")))
+#endif
+
 class Client;
 class Solver;
 
@@ -16,7 +26,7 @@ class Solver;
 // session includes activation of the object, launching computations by
 // providing a single barch of data, collecting the data and closing the
 // transaction.
-class Transaction final {
+class CLIENT_API Transaction final {
     friend class Client;
     friend class Solver;
 
