@@ -15,7 +15,7 @@ public:
     template <class T>
     Solver* getOrCreate(const std::type_info& type_id, OpType op);
 
-    SolverFactory* getInstance();
+    static SolverFactory* getInstance();
 
 
 private:
