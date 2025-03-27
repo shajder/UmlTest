@@ -12,7 +12,7 @@ SolverFactory* SolverFactory::getInstance()
 template <class T>
 Solver* SolverFactory::getOrCreate(const std::type_info& type_id, OpType op)
 {
-    if (solvers.find(type_id) == solvers.end())
+    if (solvers.find(type_id.hash_code()) == solvers.end())
     {
         solvers[type_id.hash_code()] = new SolverImpl<T>(op)
     }

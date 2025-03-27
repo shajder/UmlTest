@@ -46,8 +46,8 @@ int Transaction::run(const T*& src, unsigned int src_size, OpType op_type)
 
     if (!m_solver) return -1;
 
-    m_solver->compute<T>(src, src_size, m_dst.data(), m_dst.size() / sizeof(T),
-                         this);
+    m_solver->compute(src, src_size, m_dst.data(), m_dst.size() / sizeof(T),
+                      this);
 
     return 0;
 }
