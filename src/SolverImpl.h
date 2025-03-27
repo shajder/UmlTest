@@ -10,7 +10,10 @@ using namespace std;
 
 template <class T> class SolverImpl : public Solver {
 public:
+    SolverImpl<T>(OpType&);
     int createKernel(OpType op_type);
+    int compute(const void*& src, int src_size, const void*& dst, int dst_size,
+                const Transaction*& cb) override;
 
 
 private:

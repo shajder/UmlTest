@@ -12,9 +12,8 @@ class Transaction;
 // operation type.
 class Solver {
 public:
-    template <class T>
-    int compute(const T*& src, int src_size, const T*& dst, int dst_size,
-                const Transaction*& cb);
+    virtual int compute(const void*& src, int src_size, const void*& dst,
+                        int dst_size, const Transaction*& cb) = 0;
 
 
 private:
