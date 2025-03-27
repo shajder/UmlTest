@@ -1,5 +1,8 @@
 
 #include "SolverImpl.h"
+#include <vector>
+#include <stdexcept>
+#include <iostream>
 
 template <class T> SolverImpl<T>::SolverImpl(OpType& ot)
 {
