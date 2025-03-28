@@ -19,6 +19,6 @@ public:
 
 
 private:
-    std::map<std::pair<std::type_info, OpType>, Solver*> solvers;
+    std::map<std::pair<size_t, OpType>, Solver*> solvers;
 };
 #endif

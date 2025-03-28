@@ -34,6 +34,8 @@ private:
 public:
     int initialize();
 
+    cl_command_queue getCommandQueue();
+
 
 private:
     bool initialized = false;
