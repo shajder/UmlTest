@@ -156,8 +156,8 @@ int SolverImpl<T>::compute(const void*& src, int src_size, const void*& dst,
     }
 
     size_t globalWorkSize = src_size / sizeof(T);
-    err = clEnqueueNDRangeKernel(queue, kernel, 1, NULL, &globalWorkSize, NULL,
-                                 0, NULL, NULL);
+    err = clEnqueueNDRangeKernel(inst->queue, kernel, 1, NULL, &globalWorkSize,
+                                 NULL, 0, NULL, NULL);
     if (err != CL_SUCCESS)
     {
         fprintf(stderr, "Failed to enqueue kernel.\n");
@@ -166,8 +166,8 @@ int SolverImpl<T>::compute(const void*& src, int src_size, const void*& dst,
         return -1;
     }
 
-    err = clEnqueueReadBuffer(queue, outputBuffer, CL_TRUE, 0, dst_size, dst, 0,
-                              NULL, NULL);
+    err = clEnqueueReadBuffer(inst->queue, outputBuffer, CL_TRUE, 0, dst_size,
+                              dst, 0, NULL, NULL);
     if (err != CL_SUCCESS)
     {
         fprintf(stderr, "Failed to read from output buffer.\n");
