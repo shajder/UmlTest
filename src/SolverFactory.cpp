@@ -1,5 +1,6 @@
 
 #include "SolverFactory.h"
+#include "SolverImpl.h"
 
 SolverFactory* SolverFactory::getInstance()
 {

@@ -78,8 +78,8 @@ template <class T> int SolverImpl<T>::createKernel(OpType op_type)
     auto inst = ComputeRes::getInstance();
 
     cl_int err = CL_SUCCESS;
-    program = clCreateProgramWithSource(inst->context, 1, &kernel_src.c_str(),
-                                        nullptr, &err);
+    program = clCreateProgramWithSource(
+        inst->context, 1, (const char**)&kernel_src.c_str(), nullptr, &err);
     if (err != CL_SUCCESS)
     {
         std::cout << "Error: Unable to create program" << std::endl;
@@ -94,7 +94,8 @@ template <class T> int SolverImpl<T>::createKernel(OpType op_type)
         clGetProgramBuildInfo(program, inst->device, CL_PROGRAM_BUILD_LOG,
                               sizeof(buffer), buffer, &length);
         std::stringstream sstr;
-        sstr << "Error: Unable to build program\n" << buffer << std::endl;
+        sstr << "Error: Unable to build program" << std::endl
+             << buffer << std::endl;
 
         std::cout << sstr.str().c_str();
         return -1;
@@ -126,7 +127,7 @@ int SolverImpl<T>::compute(const void*& src, int src_size, const void*& dst,
     }
 
     cl_mem outputBuffer =
-        clCreateBuffer(context, CL_MEM_WRITE_ONLY, dst_size, NULL, &err);
+        clCreateBuffer(inst->context, CL_MEM_WRITE_ONLY, dst_size, NULL, &err);
     if (err != CL_SUCCESS)
     {
         fprintf(stderr, "Failed to create output buffer.\n");
