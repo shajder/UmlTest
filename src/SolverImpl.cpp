@@ -3,6 +3,7 @@
 #include <vector>
 #include <stdexcept>
 #include <iostream>
+#include <sstream>
 
 template <class T> SolverImpl<T>::SolverImpl(OpType& ot)
 {
@@ -78,8 +79,9 @@ template <class T> int SolverImpl<T>::createKernel(OpType op_type)
     auto inst = ComputeRes::getInstance();
 
     cl_int err = CL_SUCCESS;
-    program = clCreateProgramWithSource(
-        inst->context, 1, (const char**)&kernel_src.c_str(), nullptr, &err);
+    const char* src = kernel_src.c_str();
+    program = clCreateProgramWithSource(inst->context, 1, (const char**)&src,
+                                        nullptr, &err);
     if (err != CL_SUCCESS)
     {
         std::cout << "Error: Unable to create program" << std::endl;
