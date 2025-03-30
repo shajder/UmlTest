@@ -7,7 +7,6 @@ using namespace std;
 
 class Transaction;
 
-// -fvisibility=hidden
 #ifdef _WIN32
 #ifdef BUILDING_CLIENT_DLL
 #define CLIENT_API __declspec(dllexport)
@@ -15,6 +14,7 @@ class Transaction;
 #define CLIENT_API __declspec(dllimport)
 #endif
 #else
+// -fvisibility=hidden
 #define CLIENT_API __attribute__((visibility("default")))
 #endif
 
@@ -22,6 +22,8 @@ class Transaction;
 // transactions.
 class CLIENT_API Client final {
 public:
+    Client();
+    ~Client();
     shared_ptr<Transaction> createTransaction();
 
     int closeTransaction(shared_ptr<Transaction>& transaction);

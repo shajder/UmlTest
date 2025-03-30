@@ -2,6 +2,10 @@
 #include "Client.h"
 #include "Transaction.h"
 
+Client::Client() {}
+
+Client::~Client() {}
+
 shared_ptr<Transaction> Client::createTransaction()
 {
     std::shared_ptr<Transaction> transaction = nullptr;
