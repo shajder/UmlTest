@@ -168,7 +168,8 @@ int SolverImpl<T>::compute(const void*& src, int src_size, const void*& dst,
         return -1;
     }
 
-    err = clEnqueueReadBuffer(q, outputBuffer, CL_TRUE, 0, dst_size, (void*)dst, 0,
+    err = clEnqueueReadBuffer(q, outputBuffer, CL_TRUE, 0, dst_size, (void*)dst,
+                              0,
                               NULL, NULL);
     if (err != CL_SUCCESS)
     {
@@ -178,9 +179,9 @@ int SolverImpl<T>::compute(const void*& src, int src_size, const void*& dst,
     clReleaseMemObject(inputBuffer);
     clReleaseMemObject(outputBuffer);
 
-    for (auto & it : m_observers)
+    for (auto& it : m_observers)
     {
-        if (it!=nullptr) it->onNotifyComputeDone();
+        if (it != nullptr) it->onNotifyComputeDone();
     }
 
     return 0;
