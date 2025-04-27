@@ -180,7 +180,7 @@ int SolverImpl<T>::compute(const void*& src, int src_size, const void*& dst,
 
     for (unsigned i = 0; i < m_observers.size(); i++)
     {
-        if (m_observer[i] != nullptr) m_observer[i]->onNotifyComputeDone();
+        if (m_observers[i] != nullptr) m_observers[i]->onNotifyComputeDone();
     }
 
     return 0;
