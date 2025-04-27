@@ -178,5 +178,10 @@ int SolverImpl<T>::compute(const void*& src, int src_size, const void*& dst,
     clReleaseMemObject(inputBuffer);
     clReleaseMemObject(outputBuffer);
 
+    for (unsigned i = 0; i < m_observers.size(); i++)
+    {
+        if (m_observer[i] != nullptr) m_observer[i]->onNotifyComputeDone();
+    }
+
     return 0;
 }

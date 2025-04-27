@@ -17,6 +17,6 @@ public:
 
 
 private:
-    list<Transaction*> m_transactions;
+    std::list<Transaction*> m_observers;
 };
 #endif
