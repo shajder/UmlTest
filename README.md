@@ -1,4 +1,4 @@
-UmlTest - github project from the scratch
+UmlTest from the scratch
 
 After cloning the repo it is required to add google test dependency:
 

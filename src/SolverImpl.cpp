@@ -168,8 +168,8 @@ int SolverImpl<T>::compute(const void*& src, int src_size, const void*& dst,
         return -1;
     }
 
-    err = clEnqueueReadBuffer(q, outputBuffer, CL_TRUE, 0, dst_size, dst, 0,
-                              NULL, NULL);
+    err = clEnqueueReadBuffer(q, outputBuffer, CL_TRUE, 0, dst_size, (void*)dst,
+                              0, NULL, NULL);
     if (err != CL_SUCCESS)
     {
         fprintf(stderr, "Failed to read from output buffer.\n");
@@ -177,6 +177,11 @@ int SolverImpl<T>::compute(const void*& src, int src_size, const void*& dst,
 
     clReleaseMemObject(inputBuffer);
     clReleaseMemObject(outputBuffer);
+
+    for (auto& it : m_active_transactions)
+    {
+        if (it != nullptr) it->onNotifyComputeDone();
+    }
 
     return 0;
 }
