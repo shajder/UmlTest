@@ -19,8 +19,7 @@ public:
 
 
 private:
-
-  list<std::shared_ptr<Transaction>> m_active_transactions;
+    list<std::shared_ptr<Transaction>> m_active_transactions;
 
 };
 #endif
