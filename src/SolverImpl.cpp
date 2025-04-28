@@ -178,7 +178,7 @@ int SolverImpl<T>::compute(const void*& src, int src_size, const void*& dst,
     clReleaseMemObject(inputBuffer);
     clReleaseMemObject(outputBuffer);
 
-    for (auto& it : m_observers)
+    for (auto& it : m_active_transactions)
     {
         if (it != nullptr) it->onNotifyComputeDone();
     }

@@ -3,6 +3,8 @@
 
 
 #include <list>
+#include <memory>
+
 using namespace std;
 #include "ComputeRes.h"
 
@@ -17,6 +19,8 @@ public:
 
 
 private:
-    std::list<Transaction*> m_observers;
+
+  list<std::shared_ptr<Transaction>> m_active_transactions;
+
 };
 #endif
